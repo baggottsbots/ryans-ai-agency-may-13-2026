@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://baggottsbots.github.io/ryans-ai-agency-may-13-2026/sitemap.xml
