@@ -1,0 +1,15 @@
+/* ===== GLOBAL DARK BASE ===== */
+  body { background-color: #0a0a0a; color: #f0f0f0; font-family: 'Inter', system-ui, sans-serif; }
+
+  /* ===== PINK GLOW EFFECTS ===== */
+  .glow-btn { box-shadow: 0 0 18px 4px rgba(255,20,147,0.55), 0 0 40px 8px rgba(255,20,147,0.2); }
+  .glow-btn:hover { box-shadow: 0 0 28px 8px rgba(255,20,147,0.75), 0 0 60px 14px rgba(255,20,147,0.3); }
+
+  /* ===== HERO GRADIENT ===== */
+  .hero-bg { background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,20,147,0.13) 0%, transparent 70%), #0a0a0a; }
+
+  /* ===== FORM FOCUS PINK ===== */
+  .field:focus { outline: none; border-color: #FF1493; box-shadow: 0 0 0 2px rgba(255,20,147,0.3); }
+
+  /* ===== PINK TEXT ===== */
+  .pink { color: #FF3D8B; }
