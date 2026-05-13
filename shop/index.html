@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- BASE:START (managed by Coding Agent — do not edit) -->
+<base href="/ryans-ai-agency-may-13-2026/">
+<!-- BASE:END -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  
+
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  
+
+<!-- SEO Meta Tags -->
+<title>Ryan's AI Agency Shop — Merch, Supplements &amp; Experiences</title>
+<meta name="description" content="Official shop for Ryan's AI Agency. Shop exclusive merch, nootropics, performance supplements, and VIP retreat tickets. Secure checkout via Stripe." />
+<meta property="og:title" content="Ryan's AI Agency Shop — Merch, Supplements &amp; Experiences" />
+<meta property="og:description" content="Official shop for Ryan's AI Agency. Shop exclusive merch, nootropics, performance supplements, and VIP retreat tickets. Secure checkout via Stripe." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Ryan's AI Agency Shop — Merch, Supplements &amp; Experiences" />
+<meta name="twitter:description" content="Official shop for Ryan's AI Agency. Shop exclusive merch, nootropics, performance supplements, and VIP retreat tickets. Secure checkout via Stripe." />
+<!-- End SEO Meta Tags -->
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=3950');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='D9hra5';
+  var apiBase='https://paymegpt.com';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>
+<script data-donation>
+(function(){
+  var slug='D9hra5';
+  var apiBase='https://paymegpt.com';
+  var currency='USD';
+  var minAmt=100;var maxAmt=1000000;
+  function fmtD(c){return new Intl.NumberFormat('en-US',{style:'currency',currency:currency}).format(c/100);}
+  window.__donationConfig={currency:currency,presets:[25,50,100,250],minAmount:100/100,maxAmount:1000000/100,formatAmount:fmtD,buttonColor:'#4f46e5',buttonText:'Donate Now',thankYouMessage:'Thank you for your generous donation!'};
+  window.__processDonation=function(amountCents,email,name,donorMessage){
+    if(!amountCents||amountCents<minAmt){alert('Minimum donation is '+fmtD(minAmt));return Promise.reject('below_min');}
+    if(amountCents>maxAmt){alert('Maximum donation is '+fmtD(maxAmt));return Promise.reject('above_max');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    fetch(apiBase+'/api/landing-pages/public/'+slug+'/donate/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:name||'',amountCents:amountCents,message:donorMessage||'',successUrl:successBase+'?donation=success&email='+encodeURIComponent(email)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?donation=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process donation');}
+    }).catch(function(){alert('Failed to connect to payment server.');});
+  };
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('donation')==='success'){
+      var overlay=document.createElement('div');overlay.id='donation-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Thank You!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for your generous donation!</p><button onclick="document.getElementById(\'donation-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="min-h-screen">
+
+  <!-- ============================================================================ -->
+  <!-- NAVBAR: Minimal top bar with brand name and back link to main agency site    -->
+  <!-- Features: Clean dark bar, hot pink brand, muted back link                   -->
+  <!-- ============================================================================ -->
+  <nav data-section="navbar" class="w-full border-b border-gray-900 sticky top-0 z-50" style="background-color:#0a0a0a;">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+
+      <!-- Brand Name -->
+      <span class="font-black text-lg tracking-tight" style="color:#ffffff;">
+        Ryan's <span class="text-pink-accent">AI Agency</span> Shop
+      </span>
+
+      <!-- Back to Main Site -->
+      <a
+        href="https://paymegpt.com/p/ehUmdYz"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="back-link flex items-center gap-1.5"
+        aria-label="Back to Ryan's AI Agency main site"
+      >
+        <!-- Left arrow icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Ryan's AI Agency
+      </a>
+
+    </div>
+  </nav>
+
+
+  <!-- ============================================================================ -->
+  <!-- HERO SECTION: Page headline with pink accent and subheadline                 -->
+  <!-- Features: Radial pink glow, bold typography, centered layout                -->
+  <!-- Mobile Padding: px-4 ensures headline never clips at 375px                  -->
+  <!-- ============================================================================ -->
+  <header data-section="hero" class="hero-glow w-full pt-16 pb-12 px-4 text-center">
+    <div class="max-w-2xl mx-auto">
+
+      <!-- Main Headline -->
+      <h1 class="font-black text-5xl sm:text-6xl md:text-7xl tracking-tight leading-none mb-4">
+        The <span class="text-pink-accent" style="text-shadow: 0 0 40px rgba(255,20,147,0.6);">Shop</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="text-base sm:text-lg font-medium tracking-widest uppercase" style="color:#888888; letter-spacing: 0.2em;">
+        Merch.&nbsp; Supplements.&nbsp; Experiences.
+      </p>
+
+      <!-- Back to agency subtle link -->
+      <div class="mt-6">
+        <a
+          href="https://paymegpt.com/p/ehUmdYz"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-full border"
+          style="color:#FF1493; border-color: rgba(255,20,147,0.3); background: rgba(255,20,147,0.06); text-decoration:none; transition: background 0.2s;"
+          onmouseover="this.style.background='rgba(255,20,147,0.12)'"
+          onmouseout="this.style.background='rgba(255,20,147,0.06)'"
+        >
+          <!-- External link icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+          Visit Ryan's AI Agency
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ============================================================================ -->
+  <!-- PRODUCTS GRID: 6-product responsive grid                                     -->
+  <!-- Layout: 1 col mobile → 2 col tablet → 3 col desktop                         -->
+  <!-- Each card: image, name, price, description, Buy Now button                   -->
+  <!-- All Buy Now buttons link to Stripe checkout URL in a new tab                 -->
+  <!-- ============================================================================ -->
+  <main data-section="products" class="w-full px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="max-w-6xl mx-auto">
+
+      <!-- Products Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- ===== PRODUCT 1: PMG Mesh Trucker Hat ===== -->
+        <article class="product-card" aria-label="PMG Mesh Trucker Hat">
+          <!-- Product Image -->
+          <div class="product-image-wrap">
+            <img
+              src="https://paymegpt.com/objects/generated-images/2/1778637281482-27caf5ae4ffdef4c.png"
+              alt="PMG Mesh Trucker Hat — black and white mesh with embroidered PMG patch"
+              loading="lazy"
+            />
+          </div>
+          <!-- Product Info -->
+          <div class="p-5 flex flex-col gap-3">
+            <h2 class="text-white font-bold text-lg leading-tight">PMG Mesh Trucker Hat</h2>
+            <p class="price-tag">$20</p>
+            <p class="text-sm" style="color:#888888;">Black &amp; white mesh, embroidered PMG patch</p>
+            <!-- Buy Now Button — links to Stripe checkout -->
+            <a
+              href="https://paymegpt.com/shop/ryans-ai-agency-shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy mt-1"
+              aria-label="Buy PMG Mesh Trucker Hat for $20"
+            >
+              Buy Now
+            </a>
+          </div>
+        </article>
+
+        <!-- ===== PRODUCT 2: Neuro Stack Nootropic ===== -->
+        <article class="product-card" aria-label="Neuro Stack Nootropic">
+          <!-- Product Image -->
+          <div class="product-image-wrap">
+            <img
+              src="https://paymegpt.com/objects/generated-images/2/1778637332318-49d727f1dea8ca11.png"
+              alt="Neuro Stack Nootropic — Brainergy formula for focus and clean energy"
+              loading="lazy"
+            />
+          </div>
+          <!-- Product Info -->
+          <div class="p-5 flex flex-col gap-3">
+            <h2 class="text-white font-bold text-lg leading-tight">Neuro Stack Nootropic</h2>
+            <p class="price-tag">$20</p>
+            <p class="text-sm" style="color:#888888;">Brainergy formula. Focus + clean energy</p>
+            <!-- Buy Now Button -->
+            <a
+              href="https://paymegpt.com/shop/ryans-ai-agency-shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy mt-1"
+              aria-label="Buy Neuro Stack Nootropic for $20"
+            >
+              Buy Now
+            </a>
+          </div>
+        </article>
+
+        <!-- ===== PRODUCT 3: AI Millionaires Retreat Fiji Ticket ===== -->
+        <article class="product-card" aria-label="AI Millionaires Retreat Fiji Ticket">
+          <!-- Product Image -->
+          <div class="product-image-wrap">
+            <img
+              src="https://paymegpt.com/objects/generated-images/2/1778637406227-2ffd33e3f7ab9b01.png"
+              alt="AI Millionaires Retreat Fiji Ticket — 7-day mastermind retreat deposit"
+              loading="lazy"
+            />
+          </div>
+          <!-- Product Info -->
+          <div class="p-5 flex flex-col gap-3">
+            <h2 class="text-white font-bold text-lg leading-tight">AI Millionaires Retreat Fiji Ticket</h2>
+            <p class="price-tag">$20</p>
+            <p class="text-sm" style="color:#888888;">7-day mastermind retreat deposit</p>
+            <!-- Buy Now Button -->
+            <a
+              href="https://paymegpt.com/shop/ryans-ai-agency-shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy mt-1"
+              aria-label="Buy AI Millionaires Retreat Fiji Ticket for $20"
+            >
+              Buy Now
+            </a>
+          </div>
+        </article>
+
+        <!-- ===== PRODUCT 4: Chatbot King Hoodie ===== -->
+        <article class="product-card" aria-label="Chatbot King Hoodie">
+          <!-- Product Image -->
+          <div class="product-image-wrap">
+            <img
+              src="https://paymegpt.com/objects/generated-images/2/1778637482151-0ff7e979839a6d98.png"
+              alt="Chatbot King Hoodie — heavyweight oversized black hoodie"
+              loading="lazy"
+            />
+          </div>
+          <!-- Product Info -->
+          <div class="p-5 flex flex-col gap-3">
+            <h2 class="text-white font-bold text-lg leading-tight">Chatbot King Hoodie</h2>
+            <p class="price-tag">$20</p>
+            <p class="text-sm" style="color:#888888;">Heavyweight oversized black hoodie</p>
+            <!-- Buy Now Button -->
+            <a
+              href="https://paymegpt.com/shop/ryans-ai-agency-shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy mt-1"
+              aria-label="Buy Chatbot King Hoodie for $20"
+            >
+              Buy Now
+            </a>
+          </div>
+        </article>
+
+        <!-- ===== PRODUCT 5: Alpha Stack Creatine + Electrolytes ===== -->
+        <article class="product-card" aria-label="Alpha Stack Creatine + Electrolytes">
+          <!-- Product Image -->
+          <div class="product-image-wrap">
+            <img
+              src="https://paymegpt.com/objects/generated-images/2/1778637558773-e1e304d377b1c00d.png"
+              alt="Alpha Stack Creatine + Electrolytes — pink lemonade performance fuel"
+              loading="lazy"
+            />
+          </div>
+          <!-- Product Info -->
+          <div class="p-5 flex flex-col gap-3">
+            <h2 class="text-white font-bold text-lg leading-tight">Alpha Stack Creatine + Electrolytes</h2>
+            <p class="price-tag">$20</p>
+            <p class="text-sm" style="color:#888888;">Pink lemonade performance fuel</p>
+            <!-- Buy Now Button -->
+            <a
+              href="https://paymegpt.com/shop/ryans-ai-agency-shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy mt-1"
+              aria-label="Buy Alpha Stack Creatine + Electrolytes for $20"
+            >
+              Buy Now
+            </a>
+          </div>
+        </article>
+
+        <!-- ===== PRODUCT 6: Fiji Retreat VIP Welcome Kit ===== -->
+        <article class="product-card" aria-label="Fiji Retreat VIP Welcome Kit">
+          <!-- Product Image -->
+          <div class="product-image-wrap">
+            <img
+              src="https://paymegpt.com/objects/generated-images/2/1778637641687-19d75cde90d0d4e9.png"
+              alt="Fiji Retreat VIP Welcome Kit — luxury welcome kit add-on"
+              loading="lazy"
+            />
+          </div>
+          <!-- Product Info -->
+          <div class="p-5 flex flex-col gap-3">
+            <h2 class="text-white font-bold text-lg leading-tight">Fiji Retreat VIP Welcome Kit</h2>
+            <p class="price-tag">$20</p>
+            <p class="text-sm" style="color:#888888;">Luxury welcome kit add-on</p>
+            <!-- Buy Now Button -->
+            <a
+              href="https://paymegpt.com/shop/ryans-ai-agency-shop"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-buy mt-1"
+              aria-label="Buy Fiji Retreat VIP Welcome Kit for $20"
+            >
+              Buy Now
+            </a>
+          </div>
+        </article>
+
+      </div>
+      <!-- End Products Grid -->
+
+    </div>
+  </main>
+
+
+  <!-- ============================================================================ -->
+  <!-- TRUST BADGE SECTION: Stripe security badge and reassurance copy             -->
+  <!-- Features: Lock icon, centered layout, subtle pink accent on icon            -->
+  <!-- ============================================================================ -->
+  <section data-section="trust-badge" class="trust-section w-full px-4 py-8">
+    <div class="max-w-lg mx-auto flex flex-col items-center gap-3 text-center">
+
+      <!-- Lock Icon -->
+      <div class="lock-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+
+      <!-- Badge Text -->
+      <p class="font-semibold text-base" style="color:#cccccc;">
+        Secure Checkout via <span class="text-pink-accent">Stripe</span>
+      </p>
+      <p class="text-sm" style="color:#666666;">
+        All purchases processed securely by Stripe. Your payment info is never stored on our servers.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================================ -->
+  <!-- FOOTER: Copyright, back link to main agency site                             -->
+  <!-- Features: Minimal dark footer, hot pink link accent                          -->
+  <!-- ============================================================================ -->
+  <footer data-section="footer" class="w-full px-4 py-8 border-t border-gray-900" style="background-color:#0a0a0a;">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+
+      <!-- Copyright -->
+      <p class="text-sm" style="color:#555555;">
+        &copy; 2026 Ryan's AI Agency. All rights reserved.
+      </p>
+
+      <!-- Back to Main Site -->
+      <a
+        href="https://paymegpt.com/p/ehUmdYz"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link text-sm font-medium"
+        aria-label="Visit Ryan's AI Agency main website"
+      >
+        Ryan's AI Agency →
+      </a>
+
+    </div>
+  </footer>
+
+</body>
+</html>
